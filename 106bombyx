@@ -1,0 +1,39 @@
+#! /usr/bin/env python3
+
+import sys
+
+class Suite ():
+	def __init__(self, n, k, pop_init, pop_fin):
+		self.var = n
+		self.var_start = n
+		self.k = k
+		self.rate = 0.01
+		self.pop_init = pop_init
+		self.pop_fin = pop_fin
+		self.i = 1
+	def suite(self):
+		self.var = ((1000 - self.var) * self.var * self.k) / 1000
+		self.i = self.i + 1
+
+
+def func(suite):
+	while suite.i < suite.pop_init:
+		suite.suite()
+	while suite.i < suite.pop_fin:
+		print("%.2f" % suite.k, "%.2f" % suite.var)
+		suite.suite()
+	return (suite)
+
+if __name__ == "__main__":
+	if len(sys.argv) == 3:
+		suite = Suite(float(sys.argv[1]), float(sys.argv[2]), 0, 0)
+		while suite.i <= 100:
+			print (suite.i, "%.2f" % suite.var)
+			suite.suite()
+	if len(sys.argv) == 4:
+		suite = Suite(float(sys.argv[1]), float(1), float(sys.argv[2]), float(sys.argv[3]))
+		while suite.k < 4:
+			suite = func(suite)
+			suite.i = 1
+			suite.var = suite.var_start
+			suite.k = suite.k + suite.rate
