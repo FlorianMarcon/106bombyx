@@ -30,10 +30,12 @@ if __name__ == "__main__":
 		while suite.i <= 100:
 			print (suite.i, "%.2f" % suite.var)
 			suite.suite()
-	if len(sys.argv) == 4:
+	elif len(sys.argv) == 4:
 		suite = Suite(float(sys.argv[1]), float(1), float(sys.argv[2]), float(sys.argv[3]))
 		while suite.k < 4:
 			suite = func(suite)
 			suite.i = 1
 			suite.var = suite.var_start
 			suite.k = suite.k + suite.rate
+	else:
+		sys.exit(84);
