@@ -24,13 +24,35 @@ def func(suite):
 		suite.suite()
 	return (suite)
 
+def verify_first():
+	try:
+		float(sys.argv[1]);
+		float(sys.argv[2]);
+	except ValueError:
+		print ("Bar arguments\n")
+		return (0);
+	if float(sys.argv[1]) < 0:
+		return (0);
+	return (1);
+
+def verify_second():
+	try:
+		float(sys.argv[1]);
+		float(sys.argv[2]);
+		float(sys.argv[3]);
+	except ValueError:
+		print ("Bar arguments\n")
+		return (0);
+	if float(sys.argv[1]) < 0 or float(sys.argv[2]) > float(sys.argv[3]):
+		return (0);
+	return (1);
 if __name__ == "__main__":
-	if len(sys.argv) == 3:
+	if len(sys.argv) == 3 and verify_first() == 1:
 		suite = Suite(float(sys.argv[1]), float(sys.argv[2]), 0, 0)
 		while suite.i <= 100:
 			print (suite.i, "%.2f" % suite.var)
 			suite.suite()
-	elif len(sys.argv) == 4:
+	elif len(sys.argv) == 4 and verify_second() == 1:
 		suite = Suite(float(sys.argv[1]), float(1), float(sys.argv[2]), float(sys.argv[3]))
 		while suite.k < 4:
 			suite = func(suite)
