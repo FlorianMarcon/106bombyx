@@ -19,8 +19,8 @@ class Suite ():
 def func(suite):
 	while suite.i < suite.pop_init:
 		suite.suite()
-	while suite.i < suite.pop_fin:
-		print("%.2f" % suite.k, "%.2f" % suite.var)
+	while suite.i <= suite.pop_fin:
+		print("%.2f" % round(suite.k, 2), "%.2f" % round(suite.var, 2))
 		suite.suite()
 	return (suite)
 
