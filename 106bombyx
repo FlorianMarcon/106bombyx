@@ -33,7 +33,7 @@ def verify_first():
 	except ValueError:
 		print ("Bar arguments\n")
 		return (0);
-	if float(sys.argv[1]) < 0:
+	if float(sys.argv[1]) < 0 or float(sys.argv[2]) < 1:
 		return (0);
 	return (1);
 
@@ -47,10 +47,25 @@ def verify_second():
 		return (0);
 	if float(sys.argv[1]) < 0 or float(sys.argv[2]) > float(sys.argv[3]):
 		return (0);
-	return (1);
+	elif float(sys.argv[2]) < 1 or float(sys.argv[3]) < 1:
+		return (0);
+	else:
+		return (1)
+
+def display_help():
+	print("USAGE")
+	print("	./106bombyx n [k | i0 i1]")
+	print()
+	print("DESCRIPTION")
+	print("	n	number of first generation individuals")
+	print("	k	growth rate from 1 to 4	")
+	print("	i0	initial generation (included)")
+	print("	i1	final generation (included)")
 
 if __name__ == "__main__":
-	if len(sys.argv) == 3 and verify_first() == 1:
+	if len(sys.argv) == 2 and sys.argv[1] == "-h":
+		display_help()
+	elif len(sys.argv) == 3 and verify_first() == 1:
 		suite = Suite(float(sys.argv[1]), float(sys.argv[2]), 0, 0)
 		while suite.i <= 100:
 			print (suite.i, "%.2f" % suite.var)
