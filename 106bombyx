@@ -13,6 +13,8 @@ class Suite ():
 		self.i = 1
 	def suite(self):
 		self.var = ((1000 - self.var) * self.var * self.k) / 1000
+		if self.var < 0:
+			self.var = 0
 		self.i = self.i + 1
 
 
@@ -46,6 +48,7 @@ def verify_second():
 	if float(sys.argv[1]) < 0 or float(sys.argv[2]) > float(sys.argv[3]):
 		return (0);
 	return (1);
+
 if __name__ == "__main__":
 	if len(sys.argv) == 3 and verify_first() == 1:
 		suite = Suite(float(sys.argv[1]), float(sys.argv[2]), 0, 0)
