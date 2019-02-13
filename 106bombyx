@@ -1,0 +1,81 @@
+#! /usr/bin/env python3
+
+import sys
+
+class Suite ():
+	def __init__(self, n, k, pop_init, pop_fin):
+		self.var = n
+		self.var_start = n
+		self.k = k
+		self.rate = 0.01
+		self.pop_init = pop_init
+		self.pop_fin = pop_fin
+		self.i = 1
+	def suite(self):
+		self.var = ((1000 - self.var) * self.var * self.k) / 1000
+		if self.var < 0:
+			self.var = 0
+		self.i = self.i + 1
+
+
+def func(suite):
+	while suite.i < suite.pop_init:
+		suite.suite()
+	while suite.i <= suite.pop_fin:
+		print("%.2f" % round(suite.k, 2), "%.2f" % round(suite.var, 2))
+		suite.suite()
+	return (suite)
+
+def verify_first():
+	try:
+		float(sys.argv[1]);
+		float(sys.argv[2]);
+	except ValueError:
+		print ("Bar arguments\n")
+		return (0);
+	if float(sys.argv[1]) < 0 or float(sys.argv[2]) < 1:
+		return (0);
+	return (1);
+
+def verify_second():
+	try:
+		float(sys.argv[1]);
+		float(sys.argv[2]);
+		float(sys.argv[3]);
+	except ValueError:
+		print ("Bar arguments\n")
+		return (0);
+	if float(sys.argv[1]) < 0 or float(sys.argv[2]) > float(sys.argv[3]):
+		return (0);
+	elif float(sys.argv[2]) < 1 or float(sys.argv[3]) < 1:
+		return (0);
+	else:
+		return (1)
+
+def display_help():
+	print("USAGE")
+	print("	./106bombyx n [k | i0 i1]")
+	print()
+	print("DESCRIPTION")
+	print("	n	number of first generation individuals")
+	print("	k	growth rate from 1 to 4	")
+	print("	i0	initial generation (included)")
+	print("	i1	final generation (included)")
+
+if __name__ == "__main__":
+	if len(sys.argv) == 2 and sys.argv[1] == "-h":
+		display_help()
+	elif len(sys.argv) == 3 and verify_first() == 1:
+		suite = Suite(float(sys.argv[1]), float(sys.argv[2]), 0, 0)
+		while suite.i <= 100:
+			print (suite.i, "%.2f" % suite.var)
+			suite.suite()
+	elif len(sys.argv) == 4 and verify_second() == 1:
+		suite = Suite(float(sys.argv[1]), float(1), float(sys.argv[2]), float(sys.argv[3]))
+		while suite.k < 4:
+			suite = func(suite)
+			suite.i = 1
+			suite.var = suite.var_start
+			suite.k = suite.k + suite.rate
+	else:
+		sys.exit(84);
